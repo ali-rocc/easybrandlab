@@ -2,6 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import { Button } from './Button';
+import { trackEvent } from '@/lib/analytics';
 
 interface FormData {
   name: string;
@@ -59,11 +60,17 @@ if (!res.ok) {
   throw new Error('Failed to send');
 }
       setSuccess(true);
-      setFormData({ name: '', email: '', message: '' });
-      setTimeout(() => setSuccess(false), 5000);
-    } catch (err) {
-      setError('Something went wrong. Please try again.');
-    } finally {
+
+trackEvent("generate_lead", {
+  form: "contact",
+});
+
+setFormData({ name: '', email: '', message: '' });
+
+setTimeout(() => setSuccess(false), 5000);} catch (err) {
+  trackEvent("generate_lead_failed");
+  setError('Something went wrong. Please try again.');
+} finally {
       setLoading(false);
     }
   };
