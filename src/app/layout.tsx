@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     description: 'White-label digital services for agencies and entrepreneurs',
     type: 'website',
   },
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
