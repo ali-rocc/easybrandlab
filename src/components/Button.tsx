@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { trackCTAClick } from '@/lib/analytics';
 
 interface ButtonProps {
@@ -26,7 +27,22 @@ export function Button({
   type = 'button',
   disabled = false,
 }: ButtonProps) {
-  const handleClick = () => {
+  const router = useRouter();
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    // For link buttons with tracking, prevent default and handle navigation
+    if (trackAs && href) {
+      e.preventDefault();
+      // Track the button click
+      trackCTAClick(trackAs, window.location.pathname);
+      // Navigate after a brief delay to ensure tracking is sent
+      setTimeout(() => {
+        router.push(href);
+      }, 50);
+    }
+  };
+
+  const handleButtonClick = () => {
     // Track the button click if trackAs is provided
     if (trackAs) {
       trackCTAClick(trackAs, window.location.pathname);
@@ -53,7 +69,7 @@ export function Button({
 
   if (href) {
     return (
-      <a href={href} className={classes} onClick={handleClick}>
+      <a href={href} className={classes} onClick={handleLinkClick}>
         {children}
       </a>
     );
@@ -61,7 +77,7 @@ export function Button({
 
   return (
     <button
-      onClick={handleClick}
+      onClick={handleButtonClick}
       type={type}
       disabled={disabled}
       className={classes}
