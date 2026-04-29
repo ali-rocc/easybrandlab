@@ -27,7 +27,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Google Analytics */}
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-79JT4R0VQJ"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-79JT4R0VQJ');
+            `,
+          }}
+        />
+
+        {/* Additional Google Analytics */}
         <GoogleAnalytics />
       </head>
 
