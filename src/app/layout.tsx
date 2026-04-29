@@ -40,7 +40,9 @@ export default function RootLayout({
     function gtag(){dataLayer.push(arguments);}
     window.gtag = gtag;
     gtag('js', new Date());
-    gtag('config', 'G-79JT4R0VQJ');
+    gtag('config', 'G-79JT4R0VQJ', {
+      debug_mode: true
+    });
   `}
 </Script>
 
