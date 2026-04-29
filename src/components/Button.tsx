@@ -1,4 +1,7 @@
+'use client';
+
 import React from 'react';
+import { trackCTAClick } from '@/lib/analytics';
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -7,6 +10,7 @@ interface ButtonProps {
   className?: string;
   href?: string;
   onClick?: () => void;
+  trackAs?: string; // e.g., 'contact_cta', 'pricing_cta'
   type?: 'button' | 'submit' | 'reset';
   disabled?: boolean;
 }
@@ -18,9 +22,18 @@ export function Button({
   className = '',
   href,
   onClick,
+  trackAs,
   type = 'button',
   disabled = false,
 }: ButtonProps) {
+  const handleClick = () => {
+    // Track the button click if trackAs is provided
+    if (trackAs) {
+      trackCTAClick(trackAs, window.location.pathname);
+    }
+    // Call original onClick if provided
+    onClick?.();
+  };
   const baseStyles = 'inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200';
 
   const variantStyles = {
@@ -40,7 +53,7 @@ export function Button({
 
   if (href) {
     return (
-      <a href={href} className={classes}>
+      <a href={href} className={classes} onClick={handleClick}>
         {children}
       </a>
     );
@@ -48,8 +61,8 @@ export function Button({
 
   return (
     <button
+      onClick={handleClick}
       type={type}
-      onClick={onClick}
       disabled={disabled}
       className={classes}
     >

@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from 'react';
 import { Button } from './Button';
-import { trackEvent } from '@/lib/analytics';
+import { trackFormSubmission, trackConversion, trackError } from '@/lib/analytics';
 
 interface FormData {
   name: string;
@@ -47,30 +47,30 @@ export function ContactForm() {
     }
 
     try {
-      // Mock API call
+      // Track form submission
+      trackFormSubmission('contact_form');
+
       const res = await fetch('/api/contact', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(formData),
-});
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-if (!res.ok) {
-  throw new Error('Failed to send');
-}
+      if (!res.ok) {
+        throw new Error('Failed to send');
+      }
+
       setSuccess(true);
-
-trackEvent("generate_lead", {
-  form: "contact",
-});
-
-setFormData({ name: '', email: '', message: '' });
-
-setTimeout(() => setSuccess(false), 5000);} catch (err) {
-  trackEvent("generate_lead_failed");
-  setError('Something went wrong. Please try again.');
-} finally {
+      // Track conversion after successful submission
+      trackConversion('contact_form_submission', 100);
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setSuccess(false), 5000);
+    } catch (err) {
+      trackError('contact_form_submission_failed', '/contact');
+      setError('Something went wrong. Please try again.');
+    } finally {
       setLoading(false);
     }
   };

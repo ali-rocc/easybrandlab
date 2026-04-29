@@ -81,6 +81,8 @@ export async function POST(req: Request) {
       `,
     });
 
+    // Note: Conversion event is tracked on client-side after form submission
+    // See ContactForm.tsx for trackConversion() call
     return new Response(JSON.stringify({ success: true }), { status: 200 });
   } catch (error) {
     console.error(error);

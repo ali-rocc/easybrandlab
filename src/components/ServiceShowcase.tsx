@@ -5,6 +5,7 @@ import { Card } from './Card';
 import { Button } from './Button';
 import DeliverablePreview from './DeliverablePreview';
 import BeforeAfterBlock from './BeforeAfterBlock';
+import { trackServiceInquiry, trackCTAClick, trackEvent } from '@/lib/analytics';
 
 export interface ServiceModel {
   id: string;
@@ -41,11 +42,21 @@ export function ServiceShowcase({ service }: { service: ServiceModel }) {
                 <div className="mb-2 text-lg font-semibold">{service.outcome}</div>
 
                 <div className="flex gap-2">
-                  <Button onClick={() => setOpen(prev => !prev)} variant="primary">
+                  <Button 
+                    onClick={() => {
+                      trackEvent('service_details_viewed', { service_name: service.title });
+                      setOpen(prev => !prev);
+                    }} 
+                    variant="primary"
+                  >
                     {open ? 'Hide Details' : 'View Details'}
                   </Button>
 
-                  <Button href="/contact" variant="secondary">
+                  <Button 
+                    href="/contact" 
+                    variant="secondary"
+                    trackAs="request_quote"
+                  >
                     Request Quote
                   </Button>
                 </div>

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import { trackCTAClick } from '@/lib/analytics';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,7 +47,11 @@ export function Navbar() {
           </div>
 
           {/* CTA Button */}
-          <Link href="/contact" className="hidden btn-primary md:inline-flex">
+          <Link 
+            href="/contact" 
+            className="hidden btn-primary md:inline-flex"
+            onClick={() => trackCTAClick('navbar_get_started', '/contact')}
+          >
             Get Started
           </Link>
 
@@ -94,8 +99,15 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Link href="/contact" className="btn-primary mt-4 w-full inline-flex justify-center" onClick={() => setIsOpen(false)}>
-                Get Started
+            <Link 
+              href="/contact" 
+              className="btn-primary mt-4 w-full inline-flex justify-center" 
+              onClick={() => {
+                trackCTAClick('navbar_get_started_mobile', '/contact');
+                setIsOpen(false);
+              }}
+            >
+              Get Started
             </Link>
           </div>
         )}

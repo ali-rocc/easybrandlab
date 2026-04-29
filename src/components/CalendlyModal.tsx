@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { PopupModal } from 'react-calendly';
+import { trackCTAClick } from '@/lib/analytics';
 
 export function CalendlyModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +16,10 @@ export function CalendlyModal() {
     <>
       {/* Button */}
       <button
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          trackCTAClick('calendly_open', 'scheduling_modal');
+          setIsOpen(true);
+        }}
         className="inline-block rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 transition"
       >
         Schedule now →

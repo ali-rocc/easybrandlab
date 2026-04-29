@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
+import { GoogleAnalytics } from '@/components/GoogleAnalytics';
+import { PageTracker } from '@/components/PageTracker';
 import './globals.css';
-import Script from "next/script";
 
 export const metadata: Metadata = {
   title: 'EasyBrandLabs - White-Label Digital Services',
@@ -27,23 +28,11 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-79JT4R0VQJ"
-          strategy="afterInteractive"
-        />
-
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-79JT4R0VQJ');
-          `}
-        </Script>
+        <GoogleAnalytics />
       </head>
 
       <body className="bg-white text-slate-900">
+        <PageTracker />
         <Navbar />
         <main>{children}</main>
         <Footer />
