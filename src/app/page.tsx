@@ -105,10 +105,10 @@ export default function Home() {
             White-label web development, branding, automation, and marketing services. Add revenue streams without overhead.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-            <Button href="/contact" size="lg">
+            <Button href="/contact" size="lg" trackAs="home_hero_start_scaling">
               Start Scaling Now
             </Button>
-            <Button href="/how-it-works" variant="secondary" size="lg">
+            <Button href="/how-it-works" variant="secondary" size="lg" trackAs="home_hero_see_how_it_works">
               See How It Works
             </Button>
           </div>
@@ -207,7 +207,7 @@ export default function Home() {
         <p className="mx-auto mb-8 max-w-2xl text-blue-100">
           See Which Of Our White-Label Services Fits You Best
         </p>
-        <Button href="/contact" size="lg">
+        <Button href="/contact" size="lg" trackAs="home_final_get_started_today">
           Get Started Today
         </Button>
       </Section>

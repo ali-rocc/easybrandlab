@@ -2,6 +2,8 @@
 export { Navbar } from './Navbar';
 export { Footer } from './Footer';
 export { Button } from './Button';
+export { TrackedAnchor } from './TrackedAnchor';
+export { TrackedLink } from './TrackedLink';
 export { Card } from './Card';
 export { Section } from './Section';
 export { ContactForm } from './ContactForm';

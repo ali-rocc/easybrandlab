@@ -3,6 +3,7 @@ import { ContactForm } from '@/components/ContactForm';
 import { Card } from '@/components/Card';
 import { Section } from '@/components/Section';
 import { CalendlyModal } from '@/components/CalendlyModal';
+import { TrackedAnchor } from '@/components/TrackedAnchor';
 
 export const metadata: Metadata = {
   title: 'Contact - EasyBrandLabs',
@@ -37,16 +38,26 @@ export default function ContactPage() {
             <div className="space-y-4">
               <Card hover={false}>
                 <h3 className="mb-2 font-semibold">Email</h3>
-                <a href="mailto:support@easybrandlabs.com" className="text-blue-600 hover:underline">
+                <TrackedAnchor
+                  href="mailto:support@easybrandlabs.com"
+                  trackingLabel="support@easybrandlabs.com"
+                  trackingLocation="contact_email_card"
+                  className="text-blue-600 hover:underline"
+                >
                   support@easybrandlabs.com
-                </a>
+                </TrackedAnchor>
               </Card>
 
               <Card hover={false}>
                 <h3 className="mb-2 font-semibold">Phone</h3>
-                <a href="tel:+966-506797843" className="text-blue-600 hover:underline">
+                <TrackedAnchor
+                  href="tel:+966-506797843"
+                  trackingLabel="+966 50 679 7843"
+                  trackingLocation="contact_phone_card"
+                  className="text-blue-600 hover:underline"
+                >
                   +966 50 679 7843
-                </a>
+                </TrackedAnchor>
               </Card>
 
               <Card hover={false}>
@@ -126,13 +137,15 @@ export default function ContactPage() {
             { label: 'LinkedIn', url: '#' },
             { label: 'Instagram', url: '#' },
           ].map((social) => (
-            <a
+            <TrackedAnchor
               key={social.label}
               href={social.url}
+              trackingLabel={social.label}
+              trackingLocation="contact_social"
               className="rounded-lg bg-blue-600 px-6 py-2 text-white transition-colors hover:bg-blue-700"
             >
               {social.label}
-            </a>
+            </TrackedAnchor>
           ))}
         </div>
       </Section>

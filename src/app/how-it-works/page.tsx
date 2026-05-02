@@ -204,7 +204,7 @@ export default function HowItWorksPage() {
         <p className="mx-auto mb-8 max-w-2xl text-blue-100">
           Let’s build something that grows your business
         </p>
-        <Button href="/contact" size="lg">
+        <Button href="/contact" size="lg" trackAs="how_it_works_final_get_started">
           Get Started
         </Button>
       </Section>

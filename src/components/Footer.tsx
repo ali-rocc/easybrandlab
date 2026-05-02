@@ -1,4 +1,5 @@
-import Link from 'next/link';
+import { TrackedLink } from './TrackedLink';
+import { TrackedAnchor } from './TrackedAnchor';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -41,13 +42,15 @@ export function Footer() {
               <h3 className="mb-4 font-semibold text-slate-900">{category}</h3>
               <ul className="space-y-2">
                 {links.map((link) => (
-                  <li key={link.href}>
-                    <Link
+                  <li key={`${link.label}-${link.href}`}>
+                    <TrackedLink
                       href={link.href}
+                      trackingLabel={link.label}
+                      trackingLocation={`footer_${category.toLowerCase()}`}
                       className="text-sm text-slate-600 hover:text-blue-600"
                     >
                       {link.label}
-                    </Link>
+                    </TrackedLink>
                   </li>
                 ))}
               </ul>
@@ -61,15 +64,30 @@ export function Footer() {
             &copy; {currentYear} EasyBrandLabs. All rights reserved.
           </p>
           <div className="mt-4 flex gap-6 sm:mt-0">
-            <a href="#" className="text-sm text-slate-600 hover:text-blue-600">
+            <TrackedAnchor
+              href="#"
+              trackingLabel="Twitter"
+              trackingLocation="footer_social"
+              className="text-sm text-slate-600 hover:text-blue-600"
+            >
               Twitter
-            </a>
-            <a href="#" className="text-sm text-slate-600 hover:text-blue-600">
+            </TrackedAnchor>
+            <TrackedAnchor
+              href="#"
+              trackingLabel="LinkedIn"
+              trackingLocation="footer_social"
+              className="text-sm text-slate-600 hover:text-blue-600"
+            >
               LinkedIn
-            </a>
-            <a href="#" className="text-sm text-slate-600 hover:text-blue-600">
+            </TrackedAnchor>
+            <TrackedAnchor
+              href="#"
+              trackingLabel="GitHub"
+              trackingLocation="footer_social"
+              className="text-sm text-slate-600 hover:text-blue-600"
+            >
               GitHub
-            </a>
+            </TrackedAnchor>
           </div>
         </div>
       </div>

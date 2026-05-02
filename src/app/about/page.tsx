@@ -167,7 +167,7 @@ export default function AboutPage() {
         <p className="mx-auto mb-8 max-w-2xl text-blue-100">
           If you’re looking for quality work without the typical agency complexity, let’s talk
         </p>
-        <Button href="/contact" size="lg">
+        <Button href="/contact" size="lg" trackAs="about_final_get_started">
           Get Started
         </Button>
       </Section>

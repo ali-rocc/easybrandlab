@@ -5,7 +5,7 @@ import { Card } from './Card';
 import { Button } from './Button';
 import DeliverablePreview from './DeliverablePreview';
 import BeforeAfterBlock from './BeforeAfterBlock';
-import { trackServiceInquiry, trackCTAClick, trackEvent } from '@/lib/analytics';
+import { trackEvent } from '@/lib/analytics';
 
 export interface ServiceModel {
   id: string;
@@ -55,7 +55,7 @@ export function ServiceShowcase({ service }: { service: ServiceModel }) {
                   <Button 
                     href="/contact" 
                     variant="secondary"
-                    trackAs="request_quote"
+                    trackAs={`service_card_request_quote_${service.id}`}
                   >
                     Request Quote
                   </Button>
@@ -163,7 +163,11 @@ export function ServiceShowcase({ service }: { service: ServiceModel }) {
               </div>
 
               <div className="mt-4">
-                <Button href="/contact" variant="primary">
+                <Button
+                  href="/contact"
+                  variant="primary"
+                  trackAs={`service_details_request_quote_${service.id}`}
+                >
                   Request Quote
                 </Button>
               </div>

@@ -16,6 +16,42 @@ interface ButtonProps {
   disabled?: boolean;
 }
 
+const textFromChildren = (children: React.ReactNode): string => {
+  if (typeof children === 'string' || typeof children === 'number') {
+    return String(children);
+  }
+
+  if (Array.isArray(children)) {
+    return children.map(textFromChildren).join(' ');
+  }
+
+  if (React.isValidElement(children)) {
+    return textFromChildren(children.props.children);
+  }
+
+  return 'cta';
+};
+
+const toEventName = (value: string): string => {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '') || 'cta';
+};
+
+const shouldHandleNavigation = (e: React.MouseEvent<HTMLAnchorElement>): boolean => {
+  return !(
+    e.defaultPrevented ||
+    e.button !== 0 ||
+    e.metaKey ||
+    e.ctrlKey ||
+    e.shiftKey ||
+    e.altKey ||
+    e.currentTarget.target === '_blank'
+  );
+};
+
 export function Button({
   children,
   variant = 'primary',
@@ -28,24 +64,32 @@ export function Button({
   disabled = false,
 }: ButtonProps) {
   const router = useRouter();
+  const autoTrackName = href ? toEventName(textFromChildren(children)) : undefined;
+  const ctaName = trackAs || autoTrackName;
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    // For link buttons with tracking, prevent default and handle navigation
-    if (trackAs && href) {
+  const handleLinkClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (disabled) {
       e.preventDefault();
-      // Track the button click
-      trackCTAClick(trackAs, window.location.pathname);
-      // Navigate after a brief delay to ensure tracking is sent
-      setTimeout(() => {
+      return;
+    }
+
+    if (ctaName && href && shouldHandleNavigation(e)) {
+      e.preventDefault();
+      await trackCTAClick(ctaName, window.location.pathname, href);
+      onClick?.();
+
+      if (href.startsWith('/')) {
         router.push(href);
-      }, 50);
+      } else {
+        window.location.assign(href);
+      }
     }
   };
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     // Track the button click if trackAs is provided
     if (trackAs) {
-      trackCTAClick(trackAs, window.location.pathname);
+      await trackCTAClick(trackAs, window.location.pathname);
     }
     // Call original onClick if provided
     onClick?.();
@@ -69,7 +113,12 @@ export function Button({
 
   if (href) {
     return (
-      <a href={href} className={classes} onClick={handleLinkClick}>
+      <a
+        href={disabled ? undefined : href}
+        aria-disabled={disabled}
+        className={classes}
+        onClick={handleLinkClick}
+      >
         {children}
       </a>
     );

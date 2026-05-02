@@ -1,9 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
-import { trackCTAClick } from '@/lib/analytics';
+import { Button } from './Button';
+import { TrackedLink } from './TrackedLink';
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +22,12 @@ export function Navbar() {
       <div className="container-custom">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
+          <TrackedLink
+            href="/"
+            trackingLabel="logo"
+            trackingLocation="navbar"
+            className="flex items-center gap-2"
+          >
             <Image 
               src="/image.png"
               alt="EasyBrandLabs Logo"
@@ -31,29 +36,32 @@ export function Navbar() {
               className="rounded-lg"
             />
             <span className="text-xl font-bold text-slate-900">EasyBrandLabs</span>
-          </Link>
+          </TrackedLink>
 
           {/* Desktop Navigation */}
           <div className="hidden items-center gap-8 md:flex">
             {navLinks.map((link) => (
-              <Link
+              <TrackedLink
                 key={link.href}
                 href={link.href}
+                trackingLabel={link.label}
+                trackingLocation="navbar"
                 className="text-sm font-medium text-slate-600 transition-colors hover:text-blue-600"
               >
                 {link.label}
-              </Link>
+              </TrackedLink>
             ))}
           </div>
 
           {/* CTA Button */}
-          <Link 
-            href="/contact" 
-            className="hidden btn-primary md:inline-flex"
-            onClick={() => trackCTAClick('navbar_get_started', '/contact')}
+          <Button
+            href="/contact"
+            trackAs="navbar_get_started"
+            size="sm"
+            className="hidden md:inline-flex"
           >
             Get Started
-          </Link>
+          </Button>
 
           {/* Mobile Menu Button */}
           <button
@@ -90,25 +98,26 @@ export function Navbar() {
         {isOpen && (
           <div className="border-t border-slate-200 py-4 md:hidden">
             {navLinks.map((link) => (
-              <Link
+              <TrackedLink
                 key={link.href}
                 href={link.href}
+                trackingLabel={link.label}
+                trackingLocation="mobile_navbar"
                 className="block py-2 text-sm font-medium text-slate-600 hover:text-blue-600"
                 onClick={() => setIsOpen(false)}
               >
                 {link.label}
-              </Link>
+              </TrackedLink>
             ))}
-            <Link 
-              href="/contact" 
-              className="btn-primary mt-4 w-full inline-flex justify-center" 
-              onClick={() => {
-                trackCTAClick('navbar_get_started_mobile', '/contact');
-                setIsOpen(false);
-              }}
+            <Button
+              href="/contact"
+              trackAs="navbar_get_started_mobile"
+              size="sm"
+              className="mt-4 w-full"
+              onClick={() => setIsOpen(false)}
             >
               Get Started
-            </Link>
+            </Button>
           </div>
         )}
       </div>

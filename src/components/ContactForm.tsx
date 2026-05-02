@@ -47,9 +47,6 @@ export function ContactForm() {
     }
 
     try {
-      // Track form submission
-      trackFormSubmission('contact_form');
-
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -63,7 +60,8 @@ export function ContactForm() {
       }
 
       setSuccess(true);
-      // Track conversion after successful submission
+      // Track only confirmed successful submissions as lead events.
+      trackFormSubmission('contact_form');
       trackConversion('contact_form_submission', 100);
       setFormData({ name: '', email: '', message: '' });
       setTimeout(() => setSuccess(false), 5000);
