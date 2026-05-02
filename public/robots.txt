@@ -1,0 +1,8 @@
+# robots.txt for EasyBrandLabs
+# Replace easybrandlab.xyz with your production host (example: https://easybrandlabs.com)
+
+User-agent: *
+Allow: /
+
+# Sitemap (update host before deploy)
+Sitemap: https://easybrandlab.xyz/sitemap.xml
