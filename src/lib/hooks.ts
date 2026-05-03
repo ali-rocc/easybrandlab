@@ -12,21 +12,27 @@ import { trackEvent } from '@/lib/analytics';
 export function usePageTracking() {
   const pathname = usePathname();
   const initialLoadDone = useRef(false);
+  const previousUrl = useRef<string | null>(null);
 
   useEffect(() => {
+    const currentUrl = window.location.href;
+
     // Skip first load (GoogleAnalytics component already sends initial page_view)
     if (!initialLoadDone.current) {
       initialLoadDone.current = true;
+      previousUrl.current = currentUrl;
       return;
     }
 
     // For subsequent route changes, send page_view event
     if (pathname) {
       trackEvent("page_view", {
-        page_location: window.location.href,
+        page_location: currentUrl,
+        page_referrer: previousUrl.current || document.referrer,
         page_path: pathname,
         page_title: document.title,
       });
+      previousUrl.current = currentUrl;
     }
   }, [pathname]);
 }

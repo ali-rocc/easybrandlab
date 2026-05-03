@@ -6,6 +6,20 @@ export type AnalyticsEventParams = {
 };
 
 const EVENT_TIMEOUT_MS = 500;
+const ATTRIBUTION_STORAGE_KEY = "easybrandlabs_attribution";
+const ATTRIBUTION_QUERY_KEYS = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_term",
+  "utm_content",
+  "gclid",
+  "gbraid",
+  "wbraid",
+  "fbclid",
+  "msclkid",
+  "ttclid",
+] as const;
 
 const getPageLocation = (): string | undefined => {
   if (typeof window === "undefined") return undefined;
@@ -17,10 +31,82 @@ const getPagePath = (): string | undefined => {
   return window.location.pathname;
 };
 
+const getPageReferrer = (): string | undefined => {
+  if (typeof document === "undefined") return undefined;
+  return document.referrer || undefined;
+};
+
 const cleanParams = (params: AnalyticsEventParams): AnalyticsEventParams => {
   return Object.fromEntries(
     Object.entries(params).filter(([, value]) => value !== undefined && value !== "")
   ) as AnalyticsEventParams;
+};
+
+const safeSessionStorage = (): Storage | undefined => {
+  if (typeof window === "undefined") return undefined;
+
+  try {
+    const testKey = "__analytics_storage_test__";
+    window.sessionStorage.setItem(testKey, "1");
+    window.sessionStorage.removeItem(testKey);
+    return window.sessionStorage;
+  } catch {
+    return undefined;
+  }
+};
+
+const readStoredAttribution = (): AnalyticsEventParams => {
+  const storage = safeSessionStorage();
+  if (!storage) return {};
+
+  try {
+    const stored = storage.getItem(ATTRIBUTION_STORAGE_KEY);
+    return stored ? (JSON.parse(stored) as AnalyticsEventParams) : {};
+  } catch {
+    return {};
+  }
+};
+
+const getQueryAttribution = (): AnalyticsEventParams => {
+  if (typeof window === "undefined") return {};
+
+  const searchParams = new URLSearchParams(window.location.search);
+
+  return ATTRIBUTION_QUERY_KEYS.reduce<AnalyticsEventParams>((params, key) => {
+    const value = searchParams.get(key);
+    if (value) params[key] = value;
+    return params;
+  }, {});
+};
+
+const getAttributionParams = (): AnalyticsEventParams => {
+  if (typeof window === "undefined") return {};
+
+  const storedAttribution = readStoredAttribution();
+  const queryAttribution = getQueryAttribution();
+  const hasStoredAttribution = Object.keys(storedAttribution).length > 0;
+  const firstTouchAttribution = hasStoredAttribution
+    ? storedAttribution
+    : cleanParams({
+        first_landing_page: window.location.href,
+        original_referrer: getPageReferrer(),
+        ...queryAttribution,
+      });
+
+  if (!hasStoredAttribution) {
+    const storage = safeSessionStorage();
+    try {
+      storage?.setItem(ATTRIBUTION_STORAGE_KEY, JSON.stringify(firstTouchAttribution));
+    } catch {
+      // Attribution is helpful, but tracking should never fail because storage is unavailable.
+    }
+  }
+
+  return cleanParams({
+    ...firstTouchAttribution,
+    ...queryAttribution,
+    page_referrer: getPageReferrer(),
+  });
 };
 
 /**
@@ -53,6 +139,7 @@ export const trackEvent = (
     window.setTimeout(finish, EVENT_TIMEOUT_MS);
 
     (window as any).gtag("event", eventName, {
+      ...getAttributionParams(),
       ...cleanParams(params || {}),
       event_callback: finish,
       event_timeout: EVENT_TIMEOUT_MS,
@@ -81,6 +168,7 @@ export const trackFormSubmission = (formName: string): void => {
   trackEvent("form_submit", {
     form_name: formName,
     page_location: getPageLocation(),
+    page_referrer: getPageReferrer(),
   });
 };
 
@@ -98,6 +186,7 @@ export const trackCTAClick = (
     button_location: buttonLocation || getPagePath(),
     link_url: destinationUrl,
     page_location: getPageLocation(),
+    page_referrer: getPageReferrer(),
   });
 };
 
@@ -111,6 +200,7 @@ export const trackNavigationClick = (
     link_url: linkUrl,
     link_location: linkLocation,
     page_location: getPageLocation(),
+    page_referrer: getPageReferrer(),
   });
 };
 
@@ -124,6 +214,8 @@ export const trackError = (
   trackEvent("page_error", {
     error_message: errorMessage,
     error_location: errorLocation || getPagePath(),
+    page_location: getPageLocation(),
+    page_referrer: getPageReferrer(),
   });
 };
 
@@ -141,6 +233,7 @@ export const trackConversion = (
     value: conversionValue || 1,
     currency: "USD",
     page_location: getPageLocation(),
+    page_referrer: getPageReferrer(),
   });
 };
 
@@ -151,5 +244,6 @@ export const trackServiceInquiry = (serviceName: string): void => {
   trackEvent("service_inquiry", {
     service_name: serviceName,
     page_location: getPageLocation(),
+    page_referrer: getPageReferrer(),
   });
 };

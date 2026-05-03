@@ -22,7 +22,9 @@ export function GoogleAnalytics() {
 
           // Single config call - only here, not repeated on page changes
           gtag('config', '${gaId}', {
+            page_location: window.location.href,
             page_path: window.location.pathname,
+            page_referrer: document.referrer,
             page_title: document.title,
             anonymize_ip: true,
             allow_google_signals: true,
