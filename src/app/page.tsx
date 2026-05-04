@@ -66,9 +66,8 @@ const testimonials = [
 
 const faqs = [
   {
-    question: 'How does white-label work with EasyBrandLabs?',
-    answer: 'You present our services to your clients under your brand. We handle the delivery, and clients never know there\'s a third party involved. All work is branded as yours.',
-  },
+    question: 'How does working with EasyBrandLabs work?',
+answer: 'You focus on running your business — we build the systems that bring you leads. From websites to funnels and automation, everything is done for you with a clear focus on driving real results.',},
   {
     question: 'What quality standard can I expect?',
     answer: 'We deliver production-ready work at the same quality standards as top agencies. All deliverables are reviewed for quality before handoff.',
@@ -102,7 +101,7 @@ export default function Home() {
             <span className="text-gradient">Without Hiring</span>
           </h1>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-slate-600 sm:text-xl">
-            White-label web development, branding, automation, and marketing services. Add revenue streams without overhead.
+            web development, branding, automation, and marketing services. Add revenue streams without overhead.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Button href="/contact" size="lg" trackAs="home_hero_start_scaling">
@@ -205,7 +204,7 @@ export default function Home() {
       <Section dark className="text-center">
         <h2 className="mb-4 text-3xl font-bold sm:text-4xl">Ready to Scale?</h2>
         <p className="mx-auto mb-8 max-w-2xl text-blue-100">
-          See Which Of Our White-Label Services Fits You Best
+          See Which Of Our Growth Services Fits You Best
         </p>
         <Button href="/contact" size="lg" trackAs="home_final_get_started_today">
           Get Started Today

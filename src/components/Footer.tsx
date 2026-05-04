@@ -32,7 +32,7 @@ export function Footer() {
               <span className="font-bold text-slate-900">EasyBrandLabs</span>
             </div>
             <p className="text-sm text-slate-600">
-              White-label digital services for brands that want to scale without hiring.
+              digital services for brands that want to scale without hiring.
             </p>
           </div>
 

@@ -5,7 +5,7 @@ import { ServiceShowcase } from '@/components/ServiceShowcase';
 
 export const metadata: Metadata = {
   title: 'Services - EasyBrandLabs',
-  description: 'White-label web development, branding, automation, and marketing services',
+  description: 'web development, branding, automation, and marketing services',
 };
 
 const serviceDetails = [

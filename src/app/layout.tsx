@@ -6,14 +6,14 @@ import { PageTracker } from '@/components/PageTracker';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'EasyBrandLabs - White-Label Digital Services',
-  description: 'Scale your business without hiring. White-label web development, branding, automation, and marketing services.',
-  keywords: 'white-label, digital services, web development, branding, automation',
-  openGraph: {
-    title: 'EasyBrandLabs - Scale Your Brand with White-Label Digital Services',
-    description: 'White-label digital services for agencies and entrepreneurs',
-    type: 'website',
-  },
+  title: 'EasyBrandLabs - Conversion-Focused Websites & Growth Systems',
+description: 'We build high-converting websites, landing pages, and automation systems that help businesses generate leads and scale without complexity.',
+keywords: 'web design for businesses, landing pages, lead generation, conversion optimization, marketing automation',
+openGraph: {
+  title: 'EasyBrandLabs - Websites & Systems That Turn Visitors Into Customers',
+  description: 'Done-for-you websites, landing pages, and automation built to generate leads and grow your business.',
+  type: 'website',
+},
   icons: {
     icon: [
       { url: '/favicon.ico' },
