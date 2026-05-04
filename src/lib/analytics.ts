@@ -204,6 +204,20 @@ export const trackNavigationClick = (
   });
 };
 
+export const trackScheduleCallClick = (
+  buttonLocation: string,
+  schedulerUrl?: string
+): Promise<void> => {
+  return trackEvent("schedule_call_click", {
+    button_name: "schedule_now",
+    button_location: buttonLocation,
+    scheduler_provider: "calcom",
+    scheduler_url: schedulerUrl,
+    page_location: getPageLocation(),
+    page_referrer: getPageReferrer(),
+  });
+};
+
 /**
  * Track error events for monitoring and debugging
  */
