@@ -101,7 +101,7 @@ export default function Home() {
             <span className="text-gradient">Without Hiring</span>
           </h1>
           <p className="mx-auto mb-8 max-w-2xl text-lg text-slate-600 sm:text-xl">
-            web development, branding, automation, and marketing services. Add revenue streams without overhead.
+            Web development, branding, automation, and marketing services.<br></br> Add revenue streams without overhead.
           </p>
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Button href="/contact" size="lg" trackAs="home_hero_start_scaling">
