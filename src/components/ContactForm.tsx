@@ -3,6 +3,7 @@
 import { useState, FormEvent } from 'react';
 import { Button } from './Button';
 import { trackFormSubmission, trackConversion, trackError } from '@/lib/analytics';
+import { ui, type Locale } from '@/lib/i18n/content';
 
 interface FormData {
   name: string;
@@ -10,7 +11,9 @@ interface FormData {
   message: string;
 }
 
-export function ContactForm() {
+export function ContactForm({ locale = 'en' }: { locale?: Locale }) {
+  const copy = ui[locale].contactForm;
+  const isArabic = locale === 'ar';
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -34,14 +37,14 @@ export function ContactForm() {
 
     // Basic validation
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setError('Please fill in all fields');
+      setError(copy.required);
       setLoading(false);
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
-      setError('Please enter a valid email');
+      setError(copy.invalidEmail);
       setLoading(false);
       return;
     }
@@ -67,17 +70,17 @@ export function ContactForm() {
       setTimeout(() => setSuccess(false), 5000);
     } catch (err) {
       trackError('contact_form_submission_failed', '/contact');
-      setError('Something went wrong. Please try again.');
+      setError(copy.error);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form dir={isArabic ? 'rtl' : 'ltr'} onSubmit={handleSubmit} className="space-y-4 text-start">
       <div>
         <label htmlFor="name" className="mb-2 block text-sm font-medium">
-          Full Name
+          {copy.name}
         </label>
         <input
           type="text"
@@ -85,14 +88,14 @@ export function ContactForm() {
           name="name"
           value={formData.name}
           onChange={handleChange}
-          placeholder="John Doe"
-          className="w-full rounded-lg border border-slate-200 px-4 py-3 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+          placeholder={copy.namePlaceholder}
+          className="w-full rounded-lg border border-slate-200 px-4 py-3 text-start focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
         />
       </div>
 
       <div>
         <label htmlFor="email" className="mb-2 block text-sm font-medium">
-          Email
+          {copy.email}
         </label>
         <input
           type="email"
@@ -100,30 +103,31 @@ export function ContactForm() {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="john@example.com"
-          className="w-full rounded-lg border border-slate-200 px-4 py-3 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+          placeholder={copy.emailPlaceholder}
+          dir="ltr"
+          className="w-full rounded-lg border border-slate-200 px-4 py-3 text-start focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
         />
       </div>
 
       <div>
         <label htmlFor="message" className="mb-2 block text-sm font-medium">
-          Message
+          {copy.message}
         </label>
         <textarea
           id="message"
           name="message"
           value={formData.message}
           onChange={handleChange}
-          placeholder="Tell us about your project..."
+          placeholder={copy.messagePlaceholder}
           rows={5}
-          className="w-full rounded-lg border border-slate-200 px-4 py-3 focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
+          className="w-full rounded-lg border border-slate-200 px-4 py-3 text-start focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
         />
       </div>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
       {success && (
         <p className="rounded-lg bg-green-50 p-3 text-sm text-green-700">
-          Thanks for reaching out! We&apos;ll be in touch soon.
+          {copy.success}
         </p>
       )}
 
@@ -132,7 +136,7 @@ export function ContactForm() {
         disabled={loading}
         className="w-full"
       >
-        {loading ? 'Sending...' : 'Send Message'}
+        {loading ? copy.sending : copy.submit}
       </Button>
     </form>
   );

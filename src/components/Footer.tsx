@@ -1,28 +1,20 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
 import { TrackedLink } from './TrackedLink';
 import { TrackedAnchor } from './TrackedAnchor';
+import { getLocaleFromPath, getLocalizedPath, ui, type RouteKey } from '@/lib/i18n/content';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
-
-  const footerLinks = {
-    Product: [
-      { label: 'Services', href: '/services' },
-      
-      { label: 'How It Works', href: '/how-it-works' },
-    ],
-    Company: [
-      { label: 'About', href: '/about' },
-      { label: 'Contact', href: '/contact' },
-      { label: 'Blog', href: '#' },
-    ],
-    Legal: [
-      { label: 'Privacy Policy', href: '#' },
-      { label: 'Terms of Service', href: '#' },
-    ],
-  };
+  const pathname = usePathname() || '/';
+  const locale = getLocaleFromPath(pathname);
+  const isArabic = locale === 'ar';
+  const copy = ui[locale].footer;
+  const footerLinks = copy.groups;
 
   return (
-    <footer className="border-t border-slate-200 bg-slate-50">
+    <footer dir={isArabic ? 'rtl' : 'ltr'} className="border-t border-slate-200 bg-slate-50 text-start">
       <div className="container-custom py-12 sm:py-16">
         <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
           {/* Brand */}
@@ -32,7 +24,7 @@ export function Footer() {
               <span className="font-bold text-slate-900">EasyBrandLabs</span>
             </div>
             <p className="text-sm text-slate-600">
-              digital services for brands that want to scale without hiring.
+              {copy.tagline}
             </p>
           </div>
 
@@ -42,9 +34,9 @@ export function Footer() {
               <h3 className="mb-4 font-semibold text-slate-900">{category}</h3>
               <ul className="space-y-2">
                 {links.map((link) => (
-                  <li key={`${link.label}-${link.href}`}>
+                  <li key={link.label}>
                     <TrackedLink
-                      href={link.href}
+                      href={'route' in link ? getLocalizedPath(link.route as RouteKey, locale) : link.href}
                       trackingLabel={link.label}
                       trackingLocation={`footer_${category.toLowerCase()}`}
                       className="text-sm text-slate-600 hover:text-blue-600"
@@ -61,7 +53,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="border-t border-slate-200 pt-8 sm:flex sm:items-center sm:justify-between">
           <p className="text-sm text-slate-600">
-            &copy; {currentYear} EasyBrandLabs. All rights reserved.
+            &copy; {currentYear} EasyBrandLabs. {copy.rights}
           </p>
           <div className="mt-4 flex gap-6 sm:mt-0">
             <TrackedAnchor

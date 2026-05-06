@@ -38,7 +38,7 @@ export function DeliverablePreview({ items }: { items: DeliverableItem[] }) {
       {items.map((it) => (
         <div
           key={it.title}
-          className="group rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all hover:shadow-md"
+          className="group rounded-xl border border-slate-200 bg-white p-4 text-start shadow-sm transition-all hover:shadow-md"
           onClick={() => trackEvent('deliverable_item_clicked', { deliverable_title: it.title })}
         >
           <div className="mb-3 h-36 overflow-hidden rounded-md bg-slate-50">

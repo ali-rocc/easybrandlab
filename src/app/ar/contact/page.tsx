@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { ContactPage } from '@/components/pages/ContactPage';
 import { getPageMetadata } from '@/lib/i18n/content';
 
-export const metadata: Metadata = getPageMetadata('contact', 'en');
+export const metadata: Metadata = getPageMetadata('contact', 'ar');
 
 export default function Page() {
-  return <ContactPage locale="en" />;
+  return <ContactPage locale="ar" />;
 }

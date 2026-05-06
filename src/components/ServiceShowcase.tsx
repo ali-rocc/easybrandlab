@@ -6,6 +6,7 @@ import { Button } from './Button';
 import DeliverablePreview from './DeliverablePreview';
 import BeforeAfterBlock from './BeforeAfterBlock';
 import { trackEvent } from '@/lib/analytics';
+import type { Locale, ui } from '@/lib/i18n/content';
 
 export interface ServiceModel {
   id: string;
@@ -18,17 +19,30 @@ export interface ServiceModel {
   sellScript?: string;
 }
 
-export function ServiceShowcase({ service }: { service: ServiceModel }) {
+type ServiceShowcaseCopy = (typeof ui)['en']['serviceShowcase'];
+
+export function ServiceShowcase({
+  service,
+  copy,
+  contactHref,
+  language,
+}: {
+  service: ServiceModel;
+  copy: ServiceShowcaseCopy;
+  contactHref: string;
+  language: Locale;
+}) {
   const [open, setOpen] = useState(false);
+  const isArabic = language === 'ar';
 
   return (
-    <div className="space-y-6">
+    <div dir={isArabic ? 'rtl' : 'ltr'} className="space-y-6 text-start">
       <Card>
-        <div className="grid gap-6 lg:grid-cols-12 lg:items-start">
+        <div dir="ltr" className="grid gap-6 lg:grid-cols-12 lg:items-start">
           
           {/* visual */}
-          <div className="lg:col-span-4">
-            <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
+          <div className={`lg:col-span-4 ${isArabic ? 'lg:order-2' : ''}`}>
+            <div dir={isArabic ? 'rtl' : 'ltr'} className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-start">
               <div className="mb-4 h-44 w-full overflow-hidden rounded bg-white shadow-sm">
                 <img
                   src={service.mockPreview || "/placeholder.jpg"}
@@ -38,26 +52,26 @@ export function ServiceShowcase({ service }: { service: ServiceModel }) {
               </div>
 
               <div>
-                <div className="mb-1 text-sm font-medium text-slate-600">Outcome</div>
+                <div className="mb-1 text-sm font-medium text-slate-600">{copy.outcome}</div>
                 <div className="mb-2 text-lg font-semibold">{service.outcome}</div>
 
-                <div className="flex gap-2">
+                <div className="flex flex-wrap justify-start gap-2">
                   <Button 
                     onClick={() => {
-                      trackEvent('service_details_viewed', { service_name: service.title });
+                      trackEvent('service_details_viewed', { service_name: service.title, language });
                       setOpen(prev => !prev);
                     }} 
                     variant="primary"
                   >
-                    {open ? 'Hide Details' : 'View Details'}
+                    {open ? copy.hideDetails : copy.viewDetails}
                   </Button>
 
                   <Button 
-                    href="/contact" 
+                    href={contactHref}
                     variant="secondary"
                     trackAs={`service_card_request_quote_${service.id}`}
                   >
-                    Request Quote
+                    {copy.requestQuote}
                   </Button>
                 </div>
               </div>
@@ -65,36 +79,36 @@ export function ServiceShowcase({ service }: { service: ServiceModel }) {
           </div>
 
           {/* summary */}
-          <div className="lg:col-span-8">
+          <div dir={isArabic ? 'rtl' : 'ltr'} className={`text-start lg:col-span-8 ${isArabic ? 'lg:order-1' : ''}`}>
             <h3 className="mb-2 text-2xl font-bold">{service.title}</h3>
 
             <p className="mb-4 text-slate-600">
-              {service.sellScript ?? 'A productized service you can resell under your brand.'}
+              {service.sellScript ?? copy.fallback}
             </p>
 
             <div className="mb-4 grid gap-3 sm:grid-cols-2">
               <div className="rounded-lg bg-white p-4 text-sm shadow-sm">
-                <div className="text-xs text-slate-500">Turnaround</div>
-                <div className="font-semibold">{service.turnaround ?? '2–4 weeks'}</div>
+                <div className="text-xs text-slate-500">{copy.turnaround}</div>
+                <div className="font-semibold">{service.turnaround ?? '2-4 weeks'}</div>
               </div>
 
               <div className="rounded-lg bg-white p-4 text-sm shadow-sm">
-                <div className="text-xs text-slate-500">Pricing</div>
+                <div className="text-xs text-slate-500">{copy.pricing}</div>
                 <div className="font-semibold text-blue-600">
-                  Custom quote
+                  {copy.customQuote}
                 </div>
               </div>
             </div>
 
             <div className="space-y-3">
               <div className="text-sm font-medium text-slate-900">
-                What you get (at a glance)
+                {copy.glance}
               </div>
 
               <div className="grid gap-3 sm:grid-cols-2">
                 {service.deliverables.slice(0, 4).map((d) => (
-                  <div key={d.title} className="flex items-start gap-3 rounded-md bg-slate-50 p-3">
-                    <div className="mt-1 inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white">
+                  <div key={d.title} className="flex items-start gap-3 rounded-md bg-slate-50 p-3 text-start">
+                    <div className="mt-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-600 text-white">
                       ✓
                     </div>
                     <div>
@@ -112,11 +126,11 @@ export function ServiceShowcase({ service }: { service: ServiceModel }) {
 
       {/* expanded details */}
       {open && (
-        <div className="space-y-6 animate-slide-up border-t pt-6">
+        <div className="animate-slide-up space-y-6 border-t pt-6 text-start">
 
           <div>
             <h4 className="mb-4 text-xl font-bold">
-              What You Actually Deliver to Your Client
+              {copy.deliver}
             </h4>
 
             <DeliverablePreview items={service.deliverables} />
@@ -131,13 +145,12 @@ export function ServiceShowcase({ service }: { service: ServiceModel }) {
                 afterPreview={service.beforeAfter.after}
               />
             ) : (
-              <div className="rounded-lg border border-slate-200 bg-white p-6">
-                <div className="mb-2 font-semibold">Process flow</div>
+              <div className="rounded-lg border border-slate-200 bg-white p-6 text-start">
+                <div className="mb-2 font-semibold">{copy.processFlow}</div>
                 <ol className="space-y-2 text-slate-600">
-                  <li>1. Intake & discovery (You)</li>
-                  <li>2. Design & build (Us)</li>
-                  <li>3. QA & revisions (Us)</li>
-                  <li>4. Branded delivery (You)</li>
+                  {copy.process.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
                 </ol>
               </div>
             )}
@@ -145,45 +158,43 @@ export function ServiceShowcase({ service }: { service: ServiceModel }) {
 
           <div className="grid gap-6 sm:grid-cols-2">
             
-            <div className="rounded-lg border border-slate-200 bg-white p-6">
-              <h4 className="mb-3 text-lg font-bold">Outcome</h4>
+            <div className="rounded-lg border border-slate-200 bg-white p-6 text-start">
+              <h4 className="mb-3 text-lg font-bold">{copy.outcomeTitle}</h4>
 
               <p className="mb-3 text-slate-600">
                  <em>
-                We deliver a production-ready solution under your brand — no dev team needed.
+                {copy.outcomeBody}
                 </em>
               </p>
 
-              <div className="font-semibold text-blue-600 mb-2">
-                Custom pricing based on client needs
+              <div className="mb-2 font-semibold text-blue-600">
+                {copy.customPricing}
               </div>
 
               <div className="text-sm text-slate-600">
-                Turnaround: {service.turnaround ?? '2–4 weeks'}
+                {copy.turnaround}: {service.turnaround ?? '2-4 weeks'}
               </div>
 
               <div className="mt-4">
                 <Button
-                  href="/contact"
+                  href={contactHref}
                   variant="primary"
                   trackAs={`service_details_request_quote_${service.id}`}
                 >
-                  Request Quote
+                  {copy.requestQuote}
                 </Button>
               </div>
             </div>
 
-            <div className="rounded-lg border border-slate-200 bg-white p-6">
+            <div className="rounded-lg border border-slate-200 bg-white p-6 text-start">
               <h4 className="mb-3 text-lg font-bold">
-                Behind the Scenes (Done-for-You)
+                {copy.doneForYou}
               </h4>
 
               <ul className="list-inside list-disc space-y-2 text-slate-600">
-                <li>Project management and updates</li>
-                <li>Design, development, and QA</li>
-                <li>Branding applied to deliverables</li>
-                <li>Revisions included</li>
-                <li>Final handoff with documentation</li>
+                {copy.included.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
               </ul>
             </div>
 

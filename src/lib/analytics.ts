@@ -31,6 +31,12 @@ const getPagePath = (): string | undefined => {
   return window.location.pathname;
 };
 
+const getPageLanguage = (): "ar" | "en" | undefined => {
+  const path = getPagePath();
+  if (!path) return undefined;
+  return path === "/ar" || path.startsWith("/ar/") ? "ar" : "en";
+};
+
 const getPageReferrer = (): string | undefined => {
   if (typeof document === "undefined") return undefined;
   return document.referrer || undefined;
@@ -140,6 +146,7 @@ export const trackEvent = (
 
     (window as any).gtag("event", eventName, {
       ...getAttributionParams(),
+      language: getPageLanguage(),
       ...cleanParams(params || {}),
       event_callback: finish,
       event_timeout: EVENT_TIMEOUT_MS,
