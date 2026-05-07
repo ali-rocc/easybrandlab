@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 export type Locale = 'en' | 'ar';
 export type RouteKey = 'home' | 'about' | 'services' | 'howItWorks' | 'contact';
 
-export const SITE_URL = 'https://easybrandlab.xyz';
+export const SITE_URL = 'https://www.easybrandlab.xyz';
 
 export const routePaths: Record<RouteKey, { en: string; ar: string }> = {
   home: { en: '/', ar: '/ar' },
@@ -57,15 +57,15 @@ const metaCopy: Record<Locale, Record<RouteKey, { title: string; description: st
     home: {
       title: 'EasyBrandLabs - مواقع وخدمات رقمية تساعدك تكبر شغلك',
       description:
-        'نصمم مواقع احترافية، صفحات هبوط، وهوية وأنظمة أتمتة تساعد الشركات والوكالات في السعودية والخليج تجيب عملاء وتكبر بسهولة.',
+        'نصمم مواقع احترافية، صفحات هبوط، وهوية وأنظمة أتمتة تساعد الشركات وأصحاب المشاريع في السعودية والخليج تجيب عملاء وتكبر بسهولة.',
     },
     about: {
       title: 'عن EasyBrandLabs',
-      description: 'تعرّف على EasyBrandLabs وكيف نساعد أصحاب المشاريع والوكالات يطلقون حضور رقمي مرتب وعملي.',
+      description: 'تعرّف على EasyBrandLabs وكيف نساعد أصحاب المشاريع والشركات يطلقون حضور رقمي مرتب وعملي.',
     },
     services: {
       title: 'خدماتنا - EasyBrandLabs',
-      description: 'خدمات مواقع، هوية، أتمتة، SEO وتسويق نمو بلغة واضحة وتنفيذ احترافي يناسب الشركات والوكالات.',
+      description: 'خدمات مواقع، هوية، أتمتة، SEO وتسويق نمو بلغة واضحة وتنفيذ احترافي يناسب الشركات وأصحاب المشاريع.',
     },
     howItWorks: {
       title: 'كيف نعمل - EasyBrandLabs',
@@ -95,7 +95,7 @@ export const getPageMetadata = (route: RouteKey, locale: Locale): Metadata => {
             'صفحات هبوط',
             'جذب العملاء',
             'أتمتة التسويق',
-            'خدمات رقمية للوكالات',
+            'خدمات رقمية للشركات',
           ]
         : [
             'web design for businesses',
@@ -103,7 +103,7 @@ export const getPageMetadata = (route: RouteKey, locale: Locale): Metadata => {
             'lead generation',
             'conversion optimization',
             'marketing automation',
-            'digital services for agencies',
+            'digital services for businesses',
           ],
     alternates: {
       canonical,
@@ -177,17 +177,17 @@ export const ui = {
       viewDetails: 'View Details',
       hideDetails: 'Hide Details',
       requestQuote: 'Request Quote',
-      fallback: 'A productized service you can resell under your brand.',
+      fallback: 'A focused digital service built around your business goals.',
       turnaround: 'Turnaround',
       pricing: 'Pricing',
       customQuote: 'Custom quote',
       glance: 'What you get (at a glance)',
       deliver: 'What You Actually Deliver to Your Client',
       processFlow: 'Process flow',
-      process: ['1. Intake & discovery (You)', '2. Design & build (Us)', '3. QA & revisions (Us)', '4. Branded delivery (You)'],
+      process: ['1. Discovery and goals', '2. Strategy, design, and build', '3. QA and revisions', '4. Launch and handoff'],
       outcomeTitle: 'Outcome',
-      outcomeBody: 'We deliver a production-ready solution under your brand - no dev team needed.',
-      customPricing: 'Custom pricing based on client needs',
+      outcomeBody: 'We deliver a production-ready solution for your business - no internal dev team needed.',
+      customPricing: 'Custom pricing based on business needs',
       doneForYou: 'Behind the Scenes (Done-for-You)',
       included: [
         'Project management and updates',
@@ -215,7 +215,7 @@ export const ui = {
       switchLabel: 'عرض النسخة الإنجليزية',
     },
     footer: {
-      tagline: 'خدمات رقمية مرتبة للشركات والوكالات اللي تبغى تكبر بدون توظيف فريق كامل.',
+      tagline: 'خدمات رقمية مرتبة للشركات وأصحاب المشاريع اللي يبغون يكبرون بدون توظيف فريق كامل.',
       groups: {
         'الخدمات': [
           { label: 'الخدمات', route: 'services' as RouteKey },
@@ -252,7 +252,7 @@ export const ui = {
       viewDetails: 'شوف التفاصيل',
       hideDetails: 'إخفاء التفاصيل',
       requestQuote: 'اطلب تسعيرة',
-      fallback: 'خدمة جاهزة تقدر تقدمها لعملائك باسم علامتك.',
+      fallback: 'خدمة رقمية واضحة نبنيها حول هدف مشروعك واحتياج عملائك.',
       turnaround: 'المدة المتوقعة',
       pricing: 'التكلفة',
       customQuote: 'حسب احتياجك',
@@ -261,7 +261,7 @@ export const ui = {
       processFlow: 'طريقة التنفيذ',
       process: ['١. نفهم احتياجك', '٢. نجهز التصميم والتنفيذ', '٣. نراجع ونعدل', '٤. نسلمك الملفات جاهزة'],
       outcomeTitle: 'النتيجة النهائية',
-      outcomeBody: 'نجهز لك حل مرتب وجاهز للإطلاق باسم علامتك، بدون ما تحتاج فريق تقني داخلي.',
+      outcomeBody: 'نجهز لك حل مرتب وجاهز للإطلاق لمشروعك، بدون ما تحتاج فريق تقني داخلي.',
       customPricing: 'التسعير يكون حسب حجم المشروع واحتياجه',
       doneForYou: 'اللي نتولاه عنك',
       included: [
@@ -282,13 +282,13 @@ export const pageContent = {
   en: {
     home: {
       hero: {
-        title: ['Scale Your Brand', 'Without Hiring'],
-        body: 'Web development, branding, automation, and marketing services. Add revenue streams without overhead.',
+        title: ['Grow Your Business', 'Without Hiring a Full Team'],
+        body: 'Web development, branding, automation, and marketing systems that help your business look sharper, generate leads, and grow without extra overhead.',
         primary: 'Start Scaling Now',
         secondary: 'See How It Works',
       },
       servicesTitle: 'Our Services',
-      servicesBody: 'Everything you need to scale your brand without hiring developers or designers.',
+      servicesBody: 'Everything your business needs to build a stronger digital presence without hiring developers or designers.',
       services: [
         { title: 'Web Development', description: 'Custom, responsive websites and web applications', icon: '🚀' },
         { title: 'Branding & Design', description: 'Logo design, brand identity, and visual assets', icon: '🎨' },
@@ -298,24 +298,24 @@ export const pageContent = {
       howTitle: 'How It Works',
       howBody: 'A simple, proven process that lets you focus on sales.',
       steps: [
-        { number: '1', title: 'You Sell', description: 'Present our services to your clients under your brand' },
-        { number: '2', title: 'We Build', description: 'Our expert team delivers high-quality solutions' },
-        { number: '3', title: 'You Deliver', description: 'Client receives work branded as your brand' },
+        { number: '1', title: 'Share Your Goals', description: 'Tell us what you want your website, brand, or system to achieve' },
+        { number: '2', title: 'We Build', description: 'Our team designs and delivers the digital solution your business needs' },
+        { number: '3', title: 'You Launch', description: 'You get polished work that is ready to use, promote, and grow from' },
       ],
       testimonialsTitle: 'What You Will Say After Working With Us',
-      testimonialsBody: 'Agencies and entrepreneurs trust us to grow their business.',
+      testimonialsBody: 'Business owners and entrepreneurs trust us to improve their digital presence.',
       testimonials: [
-        { name: 'Your Name', role: 'Business Owner', content: 'EasyBrandLabs freed up 40 hours per month. We can now take on 3x more clients.', avatar: '👩‍💼' },
-        { name: 'Your Name', role: 'Digital Strategist', content: 'The quality is exceptional. Our clients think we build everything in-house.', avatar: '👨‍💼' },
-        { name: 'Your Name', role: 'Freelance Consultant', content: "This is the white-label solution we've been waiting for. Highly recommend.", avatar: '👩‍💻' },
+        { name: 'Your Name', role: 'Business Owner', content: 'EasyBrandLabs helped us launch a cleaner website and generate better inquiries.', avatar: '👩‍💼' },
+        { name: 'Your Name', role: 'Founder', content: 'The process was clear, the design looked premium, and we finally had a site we were proud to share.', avatar: '👨‍💼' },
+        { name: 'Your Name', role: 'Consultant', content: 'They made the technical side simple and gave us exactly what we needed to move faster.', avatar: '👩‍💻' },
       ],
       faqTitle: 'Frequently Asked Questions',
       faqs: [
         { question: 'How does working with EasyBrandLabs work?', answer: 'You focus on running your business while we build the systems that bring you leads. From websites to funnels and automation, everything is done for you with a clear focus on real results.' },
-        { question: 'What quality standard can I expect?', answer: 'We deliver production-ready work at the same quality standards as top agencies. All deliverables are reviewed for quality before handoff.' },
-        { question: 'Can I customize the services?', answer: 'Absolutely. We tailor services to your specific business or client needs. Custom requirements and integrations are our specialty.' },
+        { question: 'What quality standard can I expect?', answer: 'We deliver production-ready work that is reviewed for clarity, performance, and usability before handoff.' },
+        { question: 'Can I customize the services?', answer: 'Absolutely. We tailor services to your specific business needs. Custom requirements and integrations are our specialty.' },
         { question: 'How long does a typical project take?', answer: "Timelines vary based on scope. A simple website: 2-4 weeks. Branding package: 1-3 weeks. Automation: 3-8 weeks. We'll provide exact estimates upfront." },
-        { question: 'Do you handle client communication?', answer: "If you are an agency, you can keep the client relationship while we work behind the scenes. If you are a business owner, we communicate directly with your team." },
+        { question: 'How do we communicate during the project?', answer: 'We communicate directly with you or your team, keep updates clear, and make sure you know what is happening at each step.' },
         { question: 'What if revisions are needed?', answer: 'Revisions are included within the agreed scope. We handle them promptly so the final work fits the brief.' },
       ],
       ctaTitle: 'Ready to Scale?',
@@ -328,7 +328,7 @@ export const pageContent = {
       storyTitle: 'Our Story',
       story: [
         "EasyBrandLabs started with a simple idea: building high-quality digital solutions shouldn't be complicated, slow, or overpriced.",
-        'Instead of operating like a traditional agency with layers of management and overhead, we keep things lean and focused. Every project gets direct attention, faster execution, and a higher level of care.',
+        'Instead of adding layers of management and overhead, we keep things lean and focused. Every project gets direct attention, faster execution, and a higher level of care.',
         'The goal is simple: deliver work that actually helps businesses grow, not just look good.',
       ],
       badge: 'Built for Quality & Speed',
@@ -361,7 +361,7 @@ export const pageContent = {
         ['Focused', 'On Results'],
       ],
       ctaTitle: "Let's Build Something That Works",
-      ctaBody: "If you're looking for quality work without the typical agency complexity, let's talk.",
+      ctaBody: "If you're looking for quality work without the usual complexity, let's talk.",
       cta: 'Get Started',
     },
     howItWorks: {
@@ -388,7 +388,7 @@ export const pageContent = {
         { title: 'Clear Communication', description: "You always know what's happening at every stage." },
         { title: 'Built to Scale', description: 'Your product is designed to grow with your business.' },
         { title: 'Fast Delivery', description: 'We move quickly without compromising quality.' },
-        { title: 'Great Value', description: 'High-end results without agency-level pricing.' },
+        { title: 'Great Value', description: 'High-end results without bloated project costs.' },
         { title: 'Ongoing Support', description: "We're here even after launch to help you grow." },
       ],
       ctaTitle: 'Ready to Get Started?',
@@ -429,7 +429,7 @@ export const pageContent = {
         secondary: 'شوف كيف نشتغل',
       },
       servicesTitle: 'خدماتنا',
-      servicesBody: 'خدمات رقمية واضحة ومفيدة، سواء كنت صاحب مشروع أو وكالة تبغى توسع خدماتها.',
+      servicesBody: 'خدمات رقمية واضحة ومفيدة للشركات وأصحاب المشاريع اللي يبغون حضور أقوى وطلبات أكثر.',
       services: [
         { title: 'مواقع احترافية', description: 'مواقع سريعة وواضحة تساعد العميل يفهمك ويتواصل معك بسهولة', icon: '🚀' },
         { title: 'هوية وتصميم', description: 'شكل مرتب لعلامتك من الشعار إلى الألوان والقوالب', icon: '🎨' },
@@ -447,16 +447,16 @@ export const pageContent = {
       testimonialsBody: 'شغل مرتب يخفف عليك ويخلي مشروعك يظهر بشكل أقوى.',
       testimonials: [
         { name: 'صاحب مشروع', role: 'شركة ناشئة', content: 'صار عندنا موقع واضح وشكله احترافي، والناس صارت تفهم خدماتنا أسرع.', avatar: '👩‍💼' },
-        { name: 'مدير وكالة', role: 'خدمات تسويق', content: 'قدرنا نقدم خدمات إضافية لعملائنا بدون ما نزيد فريقنا الداخلي.', avatar: '👨‍💼' },
+        { name: 'صاحب شركة', role: 'خدمات مهنية', content: 'قدرنا نطلع بشكل أوضح ونستقبل طلبات أفضل بدون ما نزيد فريقنا الداخلي.', avatar: '👨‍💼' },
         { name: 'مستشار مستقل', role: 'استشارات أعمال', content: 'التنفيذ كان مرتب، واللغة بسيطة، وما احتجت أدخل في تفاصيل تقنية كثيرة.', avatar: '👩‍💻' },
       ],
       faqTitle: 'الأسئلة الشائعة',
       faqs: [
         { question: 'كيف يبدأ العمل معكم؟', answer: 'نبدأ بمكالمة قصيرة نفهم فيها مشروعك وهدفك. بعدها نرسل لك نطاق واضح، مدة تقريبية، وخطوات التنفيذ.' },
-        { question: 'هل تناسبون الشركات الصغيرة والناشئة؟', answer: 'نعم. نشتغل مع شركات ناشئة، أصحاب مشاريع، وكالات، وفرق صغيرة تحتاج تنفيذ احترافي بدون تعقيد.' },
+        { question: 'هل تناسبون الشركات الصغيرة والناشئة؟', answer: 'نعم. نشتغل مع شركات ناشئة، أصحاب مشاريع، وفرق صغيرة تحتاج تنفيذ احترافي بدون تعقيد.' },
         { question: 'هل أقدر أخصص الخدمة حسب احتياجي؟', answer: 'أكيد. نضبط النطاق حسب مشروعك، سواء تحتاج موقع فقط أو هوية أو أتمتة أو باقة كاملة.' },
         { question: 'كم يأخذ المشروع عادة؟', answer: 'حسب حجم الشغل. الموقع البسيط غالبا من أسبوعين إلى 4 أسابيع، والهوية من أسبوع إلى 3 أسابيع، والأتمتة حسب الربط المطلوب.' },
-        { question: 'هل تشتغلون خلف الكواليس للوكالات؟', answer: 'نعم. إذا كنت وكالة، نقدر ننفذ باسمك وتبقى أنت الواجهة مع العميل.' },
+        { question: 'هل تتعاملون مباشرة مع فريقي؟', answer: 'نعم. نتواصل معك أو مع فريقك مباشرة، ونرتب التحديثات والمراجعات بطريقة واضحة.' },
         { question: 'ماذا عن التعديلات؟', answer: 'أي تعديلات داخل النطاق المتفق عليه تكون مشمولة وواضحة من البداية.' },
       ],
       ctaTitle: 'جاهز ترتب حضورك الرقمي؟',
@@ -465,10 +465,10 @@ export const pageContent = {
     },
     about: {
       heroTitle: 'عن EasyBrandLabs',
-      heroBody: 'فريق صغير ومركز يساعدك تبني حضور رقمي احترافي بدون دوشة الوكالات الكبيرة.',
+      heroBody: 'فريق صغير ومركز يساعدك تبني حضور رقمي احترافي بدون تعقيد أو تكلفة فريق داخلي كبير.',
       storyTitle: 'ليش بدأنا؟',
       story: [
-        'بدأت EasyBrandLabs من ملاحظة بسيطة: كثير من الشركات تحتاج موقع وهوية وأنظمة رقمية، لكن ما تحتاج تعقيد وكالة كبيرة أو فريق داخلي مكلف.',
+        'بدأت EasyBrandLabs من ملاحظة بسيطة: كثير من الشركات تحتاج موقع وهوية وأنظمة رقمية، لكن ما تحتاج تعقيد كبير أو فريق داخلي مكلف.',
         'عشان كذا بنينا طريقة عمل خفيفة وواضحة. نفهم المطلوب، نرتب الخطة، وننفذ بجودة عالية بدون كثرة اجتماعات أو كلام تقني غير ضروري.',
         'هدفنا أن تستلم شغل يخدم مشروعك فعلا: واضح للعميل، سهل الاستخدام، وجاهز يساعدك تجيب فرص أكثر.',
       ],
@@ -529,7 +529,7 @@ export const pageContent = {
         { title: 'تواصل مفهوم', description: 'نشرح لك الوضع بلغة بسيطة ونبعدك عن التفاصيل المزعجة.' },
         { title: 'جاهز للنمو', description: 'نبني الأساس بطريقة تسمح لك تطور لاحقا بدون إعادة كل شيء.' },
         { title: 'سرعة بدون استعجال', description: 'نختصر الوقت، لكن ما نختصر الجودة.' },
-        { title: 'قيمة مناسبة', description: 'تنفيذ احترافي بدون ميزانيات وكالة كبيرة.' },
+        { title: 'قيمة مناسبة', description: 'تنفيذ احترافي بدون ميزانيات ضخمة أو تكاليف مبالغ فيها.' },
         { title: 'دعم بعد التسليم', description: 'نقدر نكمل معك في التحسينات والتطوير إذا احتجت.' },
       ],
       ctaTitle: 'جاهز نرتب الخطة؟',
@@ -555,7 +555,7 @@ export const pageContent = {
         { question: 'هل المكالمة الأولى مجانية؟', answer: 'نعم، نقدر نعمل مكالمة تعريفية قصيرة نفهم فيها احتياجك ونوضح لك هل نقدر نساعدك.' },
         { question: 'هل أقدر أحجز موعد مباشرة؟', answer: 'أكيد. استخدم زر الحجز واختر الوقت المناسب لك من المواعيد المتاحة.' },
         { question: 'وش أرسل لكم بالبداية؟', answer: 'أرسل رابط مشروعك إن وجد، وش الخدمة اللي تحتاجها، والهدف اللي تبغى توصله.' },
-        { question: 'هل تشتغلون مع وكالات؟', answer: 'نعم. نقدر ننفذ مشاريع للوكالات خلف الكواليس وبنفس روح علامتها.' },
+        { question: 'هل تشتغلون مع شركات في مراحل مبكرة؟', answer: 'نعم. نقدر نبدأ بنطاق بسيط ومفيد، ثم نطوره مع نمو الشركة.' },
       ],
       connectTitle: 'خلنا نبقى على تواصل',
       connectBody: 'تابعنا للتحديثات والنصائح وأفكار تطوير حضورك الرقمي.',
@@ -568,10 +568,10 @@ export const serviceDetails = {
     {
       id: 'web-dev',
       title: 'Web Development',
-      outcome: 'Launch client websites in 72 hours under your brand',
+      outcome: 'Launch a clear, conversion-focused website for your business',
       suggestedPricing: '$2,999 - $9,999',
-      turnaround: '72 hours - 4 weeks',
-      sellScript: 'We deliver a production-ready website under your brand - fast, SEO-ready, and optimized for conversions.',
+      turnaround: '2-4 weeks',
+      sellScript: 'We deliver a production-ready website for your business - fast, SEO-ready, and optimized for conversions.',
       mockPreview: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop',
       deliverables: [
         { title: 'Landing Page (Conversion-First)', description: 'Pixel-perfect landing page with hero, social proof, and CTA. Delivered as a ready-to-deploy HTML/Next.js page.', thumbnail: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&auto=format&fit=crop' },
@@ -582,7 +582,7 @@ export const serviceDetails = {
     {
       id: 'branding',
       title: 'Branding & Design',
-      outcome: 'Deliver a brand-ready identity system your client can use immediately',
+      outcome: 'Create a brand-ready identity system your team can use immediately',
       suggestedPricing: '$1,499 - $7,499',
       turnaround: '1-3 weeks',
       sellScript: 'You get a full brand identity - logo, typography, and templates that make your business look premium.',
@@ -596,7 +596,7 @@ export const serviceDetails = {
     {
       id: 'automation',
       title: 'Automation Systems',
-      outcome: 'Automate client workflows to save hours weekly and reduce churn',
+      outcome: 'Automate business workflows to save hours weekly and reduce manual follow-up',
       suggestedPricing: '$999 - $6,999',
       turnaround: '1-6 weeks',
       sellScript: 'We connect your tools and automate repeatable tasks so you can focus on growth.',

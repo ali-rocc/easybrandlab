@@ -15,7 +15,7 @@ export function ServicesPage({ locale }: { locale: Locale }) {
           <p className="mx-auto max-w-2xl text-lg text-slate-600">
             {isArabic
               ? 'خدمات رقمية تساعدك تطلق مشروعك بشكل احترافي وتكبر شغلك بسهولة.'
-              : 'Everything you need to deliver world-class digital solutions to your clients.'}
+              : 'Everything you need to deliver world-class digital solutions to your business needs.'}
           </p>
         </div>
       </Section>

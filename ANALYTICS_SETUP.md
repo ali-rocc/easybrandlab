@@ -22,7 +22,7 @@ import { trackEvent } from '@/lib/analytics';
 // Basic event
 trackEvent('specific_service_selected', {
   service_name: 'web_development',
-  client_type: 'agency',
+  client_type: 'business',
 });
 
 // With numeric value
@@ -44,7 +44,7 @@ trackPageView('/services', 'Services'); // path, title
 import { setUserProperty } from '@/lib/analytics';
 
 // For authenticated users
-setUserProperty('user_type', 'agency');
+setUserProperty('user_type', 'business_owner');
 setUserProperty('estimated_revenue', 50000);
 ```
 
@@ -198,7 +198,7 @@ export async function POST(request: Request) {
 - Users who viewed services but didn't inquire
 - High-engagement users (visited 3+ pages)
 - Conversion leads (form + inquiry)
-- Traffic by user type (agency, freelancer, etc.)
+- Traffic by user type (business owner, founder, marketing team, etc.)
 
 ---
 
@@ -320,4 +320,3 @@ gtag('config', '${gaId}', {
 3. **Build Audiences**: Create audience segments for retargeting
 4. **Set Up Alerts**: Monitor key metrics and get notified of anomalies
 5. **Review Weekly**: Check GA4 reports and optimize based on user behavior
-

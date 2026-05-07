@@ -1,6 +1,6 @@
-# EasyBrandLabs - White-Label Digital Services Platform
+# EasyBrandLabs - Digital Agency Website
 
-A production-ready Next.js website for a white-label digital services Brand. Built with modern best practices for performance, SEO, and user experience.
+A production-ready Next.js website for a digital agency serving businesses. Built with modern best practices for performance, SEO, and user experience.
 
 ## Features
 

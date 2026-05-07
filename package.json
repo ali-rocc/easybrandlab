@@ -1,7 +1,7 @@
 {
   "name": "easybrandlabs",
   "version": "1.0.0",
-  "description": "White-label digital services platform for agencies",
+  "description": "Digital agency website for businesses",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

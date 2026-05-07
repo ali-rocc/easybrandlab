@@ -357,6 +357,6 @@ npm start
 
 ---
 
-**Built with ❤️ for agencies looking to scale without hiring.**
+**Built for businesses looking to grow without hiring a full digital team.**
 
 Questions? Check README.md or QUICKSTART.md for detailed guidance.
