@@ -32,7 +32,7 @@ export const getLocaleFromPath = (pathname: string): Locale => (pathname === '/a
 const metaCopy: Record<Locale, Record<RouteKey, { title: string; description: string }>> = {
   en: {
     home: {
-      title: 'EasyBrandLabs - Conversion-Focused Websites & Growth Systems',
+      title: 'HardBrandLabs - Conversion-Focused Websites & Growth Systems',
       description:
         'We build high-converting websites, landing pages, and automation systems that help businesses generate leads and scale without complexity.',
     },
