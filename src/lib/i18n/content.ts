@@ -282,7 +282,7 @@ export const pageContent = {
   en: {
     home: {
       hero: {
-        title: ['Grow Your Business', 'Without Hiring a Full Team'],
+        title: ['Expand Your Business', 'Without Hiring a Full Team'],
         body: 'Web development, branding, automation, and marketing systems that help your business look sharper, generate leads, and grow without extra overhead.',
         primary: 'Start Scaling Now',
         secondary: 'See How It Works',
